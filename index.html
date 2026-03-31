@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHDR Inventory</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f0f2f5;
+      color: #1a1a2e;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    header h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .header-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    #search {
+      padding: 7px 12px;
+      border: 1px solid #444;
+      border-radius: 6px;
+      background: #2a2a40;
+      color: #fff;
+      font-size: 0.875rem;
+      width: 220px;
+      outline: none;
+    }
+    #search::placeholder { color: #888; }
+    #search:focus { border-color: #5b8dee; }
+
+    #filter-status {
+      padding: 7px 10px;
+      border: 1px solid #444;
+      border-radius: 6px;
+      background: #2a2a40;
+      color: #fff;
+      font-size: 0.875rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .stats {
+      font-size: 0.8rem;
+      color: #aaa;
+      white-space: nowrap;
+    }
+
+    main {
+      padding: 20px 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .category-section {
+      margin-bottom: 28px;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      background: #1a1a2e;
+      color: #fff;
+      border-radius: 8px 8px 0 0;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .category-header h2 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      flex: 1;
+    }
+
+    .category-badge {
+      font-size: 0.75rem;
+      background: rgba(255,255,255,0.15);
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .category-badge.out {
+      background: #c0392b;
+    }
+
+    .collapse-icon {
+      font-size: 0.8rem;
+      transition: transform 0.2s;
+    }
+
+    .category-section.collapsed .collapse-icon {
+      transform: rotate(-90deg);
+    }
+
+    .category-section.collapsed .items-table-wrap {
+      display: none;
+    }
+
+    .items-table-wrap {
+      background: #fff;
+      border-radius: 0 0 8px 8px;
+      overflow: hidden;
+      border: 1px solid #dde1e7;
+      border-top: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    thead th {
+      background: #f7f8fa;
+      padding: 9px 12px;
+      text-align: left;
+      font-weight: 600;
+      color: #555;
+      border-bottom: 1px solid #e0e4ea;
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #eef0f3;
+      transition: background 0.1s;
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #f5f7ff; }
+
+    tbody tr.checked-out {
+      background: #fff8f7;
+    }
+    tbody tr.checked-out:hover { background: #ffe9e5; }
+
+    td {
+      padding: 9px 12px;
+      vertical-align: middle;
+    }
+
+    td.name-cell {
+      font-weight: 500;
+      max-width: 260px;
+    }
+
+    td.location-cell {
+      color: #666;
+      white-space: nowrap;
+    }
+
+    td.barcode-cell {
+      font-family: monospace;
+      color: #888;
+      font-size: 0.78rem;
+      white-space: nowrap;
+    }
+
+    td.qty-cell {
+      text-align: center;
+      color: #555;
+    }
+
+    td.status-cell {
+      white-space: nowrap;
+    }
+
+    .availability-pill {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+    .availability-pill.available {
+      background: #e6f4ea;
+      color: #1e7e34;
+    }
+    .availability-pill.unavailable {
+      background: #fce8e6;
+      color: #c0392b;
+    }
+
+    .toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 600;
+      transition: background 0.15s, transform 0.1s;
+      white-space: nowrap;
+    }
+
+    .toggle-btn:active { transform: scale(0.97); }
+
+    .toggle-btn.in {
+      background: #e8f5e9;
+      color: #2e7d32;
+      border: 1px solid #a5d6a7;
+    }
+    .toggle-btn.in:hover { background: #c8e6c9; }
+
+    .toggle-btn.out {
+      background: #ffebee;
+      color: #c62828;
+      border: 1px solid #ef9a9a;
+    }
+    .toggle-btn.out:hover { background: #ffcdd2; }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .dot.green { background: #2e7d32; }
+    .dot.red   { background: #c62828; }
+
+    .note-cell {
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #888;
+      font-size: 0.78rem;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 40px;
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    .change-log-wrap {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      z-index: 200;
+    }
+
+    #log-toggle-btn {
+      background: #1a1a2e;
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 600;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    }
+
+    #change-log {
+      background: #fff;
+      border: 1px solid #dde1e7;
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 8px;
+      width: 320px;
+      max-height: 260px;
+      overflow-y: auto;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      display: none;
+    }
+
+    #change-log h3 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #1a1a2e;
+    }
+
+    .log-entry {
+      font-size: 0.78rem;
+      padding: 4px 0;
+      border-bottom: 1px solid #f0f0f0;
+      color: #444;
+    }
+    .log-entry:last-child { border-bottom: none; }
+    .log-entry .log-time { color: #aaa; font-size: 0.7rem; }
+    .log-entry .log-out { color: #c62828; font-weight: 600; }
+    .log-entry .log-in  { color: #2e7d32; font-weight: 600; }
+
+    #clear-log-btn {
+      background: none;
+      border: none;
+      color: #888;
+      font-size: 0.75rem;
+      cursor: pointer;
+      margin-top: 8px;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 700px) {
+      main { padding: 12px; }
+      #search { width: 140px; }
+      td.note-cell, thead th.note-col, td.note-col { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>CHDR Inventory</h1>
+  <div class="header-controls">
+    <input id="search" type="search" placeholder="Search items, barcodes..." autocomplete="off">
+    <select id="filter-status">
+      <option value="all">All Items</option>
+      <option value="in">Checked In</option>
+      <option value="out">Checked Out</option>
+    </select>
+    <span class="stats" id="stats-label"></span>
+  </div>
+</header>
+
+<main id="main-content">
+  <div class="no-results" id="loading">Loading inventory...</div>
+</main>
+
+<div class="change-log-wrap">
+  <div id="change-log">
+    <h3>Activity Log</h3>
+    <div id="log-entries"></div>
+    <button id="clear-log-btn" onclick="clearLog()">Clear log</button>
+  </div>
+  <button id="log-toggle-btn" onclick="toggleLog()">Activity Log (<span id="log-count">0</span>)</button>
+</div>
+
+<script>
+  const STORAGE_KEY = 'chdr_checkout_state';
+  let allItems = [];
+  let state = {}; // id -> true (checked out) | false (checked in)
+  let logEntries = [];
+
+  // Load persisted state
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) state = JSON.parse(raw);
+    } catch(e) {}
+  }
+
+  function saveState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function isCheckedOut(item) {
+    if (item.id in state) return state[item.id];
+    return item.checked_out;
+  }
+
+  // Group items by Category
+  function groupByCategory(items) {
+    const groups = {};
+    items.forEach(item => {
+      const cat = item['Category'] || 'Uncategorized';
+      if (!groups[cat]) groups[cat] = [];
+      groups[cat].push(item);
+    });
+    return groups;
+  }
+
+  function escHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;');
+  }
+
+  function renderAll() {
+    const query = document.getElementById('search').value.trim().toLowerCase();
+    const filterStatus = document.getElementById('filter-status').value;
+
+    let filtered = allItems.filter(item => {
+      if (query) {
+        const hay = [
+          item['Item Name'], item['Barcode'], item['Category'],
+          item['Location'], item['Vendor/Type'], item['Serial'], item['Note']
+        ].filter(Boolean).join(' ').toLowerCase();
+        if (!hay.includes(query)) return false;
+      }
+      if (filterStatus === 'in'  &&  isCheckedOut(item)) return false;
+      if (filterStatus === 'out' && !isCheckedOut(item)) return false;
+      return true;
+    });
+
+    const groups = groupByCategory(filtered);
+    const main = document.getElementById('main-content');
+
+    if (filtered.length === 0) {
+      main.innerHTML = '<div class="no-results">No items match your search.</div>';
+      document.getElementById('stats-label').textContent = '0 items';
+      return;
+    }
+
+    document.getElementById('stats-label').textContent =
+      `${filtered.length} item${filtered.length !== 1 ? 's' : ''}`;
+
+    const catOrder = Object.keys(groups).sort();
+    main.innerHTML = catOrder.map(cat => {
+      const items = groups[cat];
+      const outCount = items.filter(i => isCheckedOut(i)).length;
+      return `
+        <section class="category-section" id="cat-${escHtml(cat.replace(/\s+/g,'_'))}">
+          <div class="category-header" onclick="toggleCategory(this.parentElement)">
+            <h2>${escHtml(cat)}</h2>
+            <span class="category-badge">${items.length} item${items.length !== 1 ? 's' : ''}</span>
+            ${outCount > 0 ? `<span class="category-badge out">${outCount} out</span>` : ''}
+            <span class="collapse-icon">&#9660;</span>
+          </div>
+          <div class="items-table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Item Name</th>
+                  <th>Barcode</th>
+                  <th>Location</th>
+                  <th>Qty</th>
+                  <th>Vendor/Type</th>
+                  <th>Availability</th>
+                  <th class="note-col">Note</th>
+                  <th>Check In/Out</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${items.map(item => renderRow(item)).join('')}
+              </tbody>
+            </table>
+          </div>
+        </section>`;
+    }).join('');
+  }
+
+  function renderRow(item) {
+    const out = isCheckedOut(item);
+    const avail = item['Status'];
+    const availClass = avail === 'Available' ? 'available' : 'unavailable';
+    return `
+      <tr class="${out ? 'checked-out' : ''}" id="row-${item.id}">
+        <td class="name-cell">${escHtml(item['Item Name'])}</td>
+        <td class="barcode-cell">${escHtml(item['Barcode'] || '')}</td>
+        <td class="location-cell">${escHtml(item['Location'] || '')}</td>
+        <td class="qty-cell">${escHtml(String(item['Qty'] || ''))}</td>
+        <td>${escHtml(item['Vendor/Type'] || '')}</td>
+        <td class="status-cell">
+          <span class="availability-pill ${availClass}">${escHtml(avail || '')}</span>
+        </td>
+        <td class="note-cell note-col" title="${escHtml(item['Note'] || '')}">${escHtml(item['Note'] || '')}</td>
+        <td>
+          <button class="toggle-btn ${out ? 'out' : 'in'}"
+                  onclick="toggleCheckout(${item.id})">
+            <span class="dot ${out ? 'red' : 'green'}"></span>
+            ${out ? 'OUT' : 'IN'}
+          </button>
+        </td>
+      </tr>`;
+  }
+
+  function toggleCheckout(id) {
+    const item = allItems.find(i => i.id === id);
+    if (!item) return;
+    const wasOut = isCheckedOut(item);
+    state[id] = !wasOut;
+    saveState();
+
+    // Log the change
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    logEntries.unshift({
+      name: item['Item Name'],
+      category: item['Category'],
+      action: !wasOut ? 'out' : 'in',
+      time: timeStr
+    });
+    updateLog();
+
+    // Update just this row in-place for speed
+    const row = document.getElementById(`row-${id}`);
+    if (row) {
+      row.outerHTML = renderRow({...item});
+      // after outerHTML replace, re-find and update class
+      const newRow = document.getElementById(`row-${id}`);
+      if (newRow) {
+        newRow.className = state[id] ? 'checked-out' : '';
+      }
+    }
+
+    // Refresh category badges without full re-render
+    updateCategoryBadges();
+    document.getElementById('stats-label').textContent =
+      `${document.querySelectorAll('tbody tr').length} items`;
+  }
+
+  function updateCategoryBadges() {
+    document.querySelectorAll('.category-section').forEach(section => {
+      const rows = section.querySelectorAll('tbody tr');
+      const total = rows.length;
+      const outCount = [...rows].filter(r => r.classList.contains('checked-out')).length;
+      const badges = section.querySelectorAll('.category-badge');
+      if (badges[0]) badges[0].textContent = `${total} item${total !== 1 ? 's' : ''}`;
+      // Remove old out badge
+      const oldOut = section.querySelector('.category-badge.out');
+      if (oldOut) oldOut.remove();
+      if (outCount > 0) {
+        const outBadge = document.createElement('span');
+        outBadge.className = 'category-badge out';
+        outBadge.textContent = `${outCount} out`;
+        const collapseIcon = section.querySelector('.collapse-icon');
+        collapseIcon.parentElement.insertBefore(outBadge, collapseIcon);
+      }
+    });
+  }
+
+  function toggleCategory(section) {
+    section.classList.toggle('collapsed');
+  }
+
+  function toggleLog() {
+    const log = document.getElementById('change-log');
+    log.style.display = log.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function updateLog() {
+    const container = document.getElementById('log-entries');
+    document.getElementById('log-count').textContent = logEntries.length;
+    if (logEntries.length === 0) {
+      container.innerHTML = '<div class="log-entry" style="color:#aaa">No activity yet.</div>';
+      return;
+    }
+    container.innerHTML = logEntries.slice(0, 50).map(e => `
+      <div class="log-entry">
+        <span class="${e.action === 'out' ? 'log-out' : 'log-in'}">${e.action.toUpperCase()}</span>
+        &mdash; ${escHtml(e.name)}
+        <span class="log-time">${e.time}</span>
+      </div>`).join('');
+  }
+
+  function clearLog() {
+    logEntries = [];
+    updateLog();
+  }
+
+  // Debounced re-render on search/filter
+  let renderTimer;
+  function scheduleRender() {
+    clearTimeout(renderTimer);
+    renderTimer = setTimeout(renderAll, 120);
+  }
+
+  document.getElementById('search').addEventListener('input', scheduleRender);
+  document.getElementById('filter-status').addEventListener('change', scheduleRender);
+
+  // Boot
+  loadState();
+  fetch('inventory.json')
+    .then(r => r.json())
+    .then(data => {
+      allItems = data;
+      renderAll();
+      updateLog();
+    })
+    .catch(() => {
+      document.getElementById('main-content').innerHTML =
+        '<div class="no-results">Error loading inventory.json. Make sure to serve this page over HTTP.</div>';
+    });
+</script>
+</body>
+</html>
