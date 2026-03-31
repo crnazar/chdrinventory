@@ -29,11 +29,7 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
 
-    header h1 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
+    header h1 { font-size: 1.25rem; font-weight: 700; letter-spacing: 0.5px; }
 
     .header-controls {
       display: flex;
@@ -66,11 +62,21 @@
       cursor: pointer;
     }
 
-    .stats {
-      font-size: 0.8rem;
-      color: #aaa;
+    .stats { font-size: 0.8rem; color: #aaa; white-space: nowrap; }
+
+    .btn-add {
+      padding: 7px 14px;
+      background: #5b8dee;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
       white-space: nowrap;
+      transition: background 0.15s;
     }
+    .btn-add:hover { background: #4a7de0; }
 
     main {
       padding: 20px 24px;
@@ -78,9 +84,7 @@
       margin: 0 auto;
     }
 
-    .category-section {
-      margin-bottom: 28px;
-    }
+    .category-section { margin-bottom: 28px; }
 
     .category-header {
       display: flex;
@@ -94,11 +98,7 @@
       user-select: none;
     }
 
-    .category-header h2 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      flex: 1;
-    }
+    .category-header h2 { font-size: 0.95rem; font-weight: 600; flex: 1; }
 
     .category-badge {
       font-size: 0.75rem;
@@ -106,23 +106,11 @@
       padding: 2px 8px;
       border-radius: 10px;
     }
+    .category-badge.out { background: #c0392b; }
 
-    .category-badge.out {
-      background: #c0392b;
-    }
-
-    .collapse-icon {
-      font-size: 0.8rem;
-      transition: transform 0.2s;
-    }
-
-    .category-section.collapsed .collapse-icon {
-      transform: rotate(-90deg);
-    }
-
-    .category-section.collapsed .items-table-wrap {
-      display: none;
-    }
+    .collapse-icon { font-size: 0.8rem; transition: transform 0.2s; }
+    .category-section.collapsed .collapse-icon { transform: rotate(-90deg); }
+    .category-section.collapsed .items-table-wrap { display: none; }
 
     .items-table-wrap {
       background: #fff;
@@ -132,11 +120,7 @@
       border-top: none;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.82rem;
-    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
 
     thead th {
       background: #f7f8fa;
@@ -148,49 +132,23 @@
       white-space: nowrap;
     }
 
-    tbody tr {
-      border-bottom: 1px solid #eef0f3;
-      transition: background 0.1s;
-    }
-
+    tbody tr { border-bottom: 1px solid #eef0f3; transition: background 0.1s; }
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: #f5f7ff; }
-
-    tbody tr.checked-out {
-      background: #fff8f7;
-    }
+    tbody tr.checked-out { background: #fff8f7; }
     tbody tr.checked-out:hover { background: #ffe9e5; }
-
-    td {
-      padding: 9px 12px;
-      vertical-align: middle;
+    tbody tr.custom-item td.name-cell::after {
+      content: ' ★';
+      color: #5b8dee;
+      font-size: 0.7rem;
     }
 
-    td.name-cell {
-      font-weight: 500;
-      max-width: 260px;
-    }
-
-    td.location-cell {
-      color: #666;
-      white-space: nowrap;
-    }
-
-    td.barcode-cell {
-      font-family: monospace;
-      color: #888;
-      font-size: 0.78rem;
-      white-space: nowrap;
-    }
-
-    td.qty-cell {
-      text-align: center;
-      color: #555;
-    }
-
-    td.status-cell {
-      white-space: nowrap;
-    }
+    td { padding: 9px 12px; vertical-align: middle; }
+    td.name-cell { font-weight: 500; max-width: 240px; }
+    td.location-cell { color: #666; white-space: nowrap; }
+    td.barcode-cell { font-family: monospace; color: #888; font-size: 0.78rem; white-space: nowrap; }
+    td.qty-cell { text-align: center; color: #555; }
+    td.status-cell { white-space: nowrap; }
 
     .availability-pill {
       display: inline-block;
@@ -199,14 +157,8 @@
       padding: 2px 8px;
       border-radius: 10px;
     }
-    .availability-pill.available {
-      background: #e6f4ea;
-      color: #1e7e34;
-    }
-    .availability-pill.unavailable {
-      background: #fce8e6;
-      color: #c0392b;
-    }
+    .availability-pill.available { background: #e6f4ea; color: #1e7e34; }
+    .availability-pill.unavailable { background: #fce8e6; color: #c0392b; }
 
     .toggle-btn {
       display: inline-flex;
@@ -221,35 +173,18 @@
       transition: background 0.15s, transform 0.1s;
       white-space: nowrap;
     }
-
     .toggle-btn:active { transform: scale(0.97); }
-
-    .toggle-btn.in {
-      background: #e8f5e9;
-      color: #2e7d32;
-      border: 1px solid #a5d6a7;
-    }
+    .toggle-btn.in { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
     .toggle-btn.in:hover { background: #c8e6c9; }
-
-    .toggle-btn.out {
-      background: #ffebee;
-      color: #c62828;
-      border: 1px solid #ef9a9a;
-    }
+    .toggle-btn.out { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
     .toggle-btn.out:hover { background: #ffcdd2; }
 
-    .dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      display: inline-block;
-      flex-shrink: 0;
-    }
+    .dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
     .dot.green { background: #2e7d32; }
     .dot.red   { background: #c62828; }
 
     .note-cell {
-      max-width: 200px;
+      max-width: 180px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -257,19 +192,181 @@
       font-size: 0.78rem;
     }
 
-    .no-results {
-      text-align: center;
-      padding: 40px;
-      color: #999;
-      font-size: 0.9rem;
+    .action-cell { white-space: nowrap; }
+
+    .btn-edit {
+      padding: 4px 10px;
+      background: #fff;
+      color: #555;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+    .btn-edit:hover { background: #f0f0f0; }
+
+    .btn-delete {
+      padding: 4px 8px;
+      background: #fff;
+      color: #c62828;
+      border: 1px solid #ef9a9a;
+      border-radius: 5px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      margin-left: 4px;
+      transition: background 0.12s;
+    }
+    .btn-delete:hover { background: #ffebee; }
+
+    .no-results { text-align: center; padding: 40px; color: #999; font-size: 0.9rem; }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 10px;
+      padding: 28px 28px 22px;
+      width: 520px;
+      max-width: 95vw;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      position: relative;
     }
 
-    .change-log-wrap {
-      position: fixed;
-      bottom: 16px;
-      right: 16px;
-      z-index: 200;
+    .modal h2 { font-size: 1.05rem; font-weight: 700; margin-bottom: 20px; color: #1a1a2e; }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 18px;
     }
+
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group.full { grid-column: 1 / -1; }
+
+    .form-group label { font-size: 0.78rem; font-weight: 600; color: #555; }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 8px 10px;
+      border: 1px solid #ccd0d8;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-family: inherit;
+      color: #1a1a2e;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: #5b8dee; }
+
+    .form-group textarea { resize: vertical; min-height: 60px; }
+
+    .checkout-toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      grid-column: 1 / -1;
+      margin-top: 4px;
+    }
+
+    .checkout-toggle-row label { font-size: 0.85rem; font-weight: 600; color: #555; }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 46px;
+      height: 26px;
+      flex-shrink: 0;
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: #e8f5e9;
+      border: 1.5px solid #a5d6a7;
+      border-radius: 26px;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .slider::before {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      left: 3px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #2e7d32;
+      border-radius: 50%;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .switch input:checked + .slider { background: #ffebee; border-color: #ef9a9a; }
+    .switch input:checked + .slider::before { transform: translate(20px, -50%); background: #c62828; }
+
+    .switch-label { font-size: 0.82rem; color: #555; }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 1px solid #eee;
+    }
+
+    .btn-cancel {
+      padding: 8px 18px;
+      background: #fff;
+      color: #555;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+    .btn-cancel:hover { background: #f5f5f5; }
+
+    .btn-save {
+      padding: 8px 20px;
+      background: #5b8dee;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-save:hover { background: #4a7de0; }
+
+    .btn-close-modal {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: #999;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .btn-close-modal:hover { color: #333; }
+
+    /* ── Activity log ── */
+    .change-log-wrap { position: fixed; bottom: 16px; right: 16px; z-index: 200; }
 
     #log-toggle-btn {
       background: #1a1a2e;
@@ -296,23 +393,15 @@
       display: none;
     }
 
-    #change-log h3 {
-      font-size: 0.85rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: #1a1a2e;
-    }
+    #change-log h3 { font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; color: #1a1a2e; }
 
-    .log-entry {
-      font-size: 0.78rem;
-      padding: 4px 0;
-      border-bottom: 1px solid #f0f0f0;
-      color: #444;
-    }
+    .log-entry { font-size: 0.78rem; padding: 4px 0; border-bottom: 1px solid #f0f0f0; color: #444; }
     .log-entry:last-child { border-bottom: none; }
     .log-entry .log-time { color: #aaa; font-size: 0.7rem; }
     .log-entry .log-out { color: #c62828; font-weight: 600; }
     .log-entry .log-in  { color: #2e7d32; font-weight: 600; }
+    .log-entry .log-edit { color: #5b8dee; font-weight: 600; }
+    .log-entry .log-add  { color: #7b5ea7; font-weight: 600; }
 
     #clear-log-btn {
       background: none;
@@ -328,6 +417,9 @@
       main { padding: 12px; }
       #search { width: 140px; }
       td.note-cell, thead th.note-col, td.note-col { display: none; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: 1; }
+      .checkout-toggle-row { grid-column: 1; }
     }
   </style>
 </head>
@@ -343,12 +435,70 @@
       <option value="out">Checked Out</option>
     </select>
     <span class="stats" id="stats-label"></span>
+    <button class="btn-add" onclick="openAddModal()">+ Add Item</button>
   </div>
 </header>
 
 <main id="main-content">
-  <div class="no-results" id="loading">Loading inventory...</div>
+  <div class="no-results">Loading inventory...</div>
 </main>
+
+<!-- Add / Edit Modal -->
+<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <button class="btn-close-modal" onclick="closeModal()" title="Close">&times;</button>
+    <h2 id="modal-title">Add Item</h2>
+    <div class="form-grid">
+      <div class="form-group full">
+        <label for="f-name">Item Name <span style="color:#c62828">*</span></label>
+        <input id="f-name" type="text" placeholder="e.g. Logitech C920 Webcam">
+      </div>
+      <div class="form-group">
+        <label for="f-category">Category <span style="color:#c62828">*</span></label>
+        <select id="f-category"></select>
+      </div>
+      <div class="form-group">
+        <label for="f-barcode">Barcode</label>
+        <input id="f-barcode" type="text" placeholder="e.g. CHDR-00123">
+      </div>
+      <div class="form-group">
+        <label for="f-location">Location</label>
+        <input id="f-location" type="text" placeholder="e.g. TCH 325">
+      </div>
+      <div class="form-group">
+        <label for="f-qty">Qty</label>
+        <input id="f-qty" type="number" min="0" placeholder="1">
+      </div>
+      <div class="form-group">
+        <label for="f-vendor">Vendor/Type</label>
+        <input id="f-vendor" type="text" placeholder="e.g. Logitech">
+      </div>
+      <div class="form-group">
+        <label for="f-availability">Availability</label>
+        <select id="f-availability">
+          <option value="Available">Available</option>
+          <option value="Unavailable">Unavailable</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label for="f-note">Note</label>
+        <textarea id="f-note" placeholder="Optional note..."></textarea>
+      </div>
+      <div class="checkout-toggle-row">
+        <label>Check In/Out</label>
+        <label class="switch">
+          <input type="checkbox" id="f-checkout">
+          <span class="slider"></span>
+        </label>
+        <span class="switch-label" id="f-checkout-label">IN</span>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-save" onclick="saveItem()">Save Item</button>
+    </div>
+  </div>
+</div>
 
 <div class="change-log-wrap">
   <div id="change-log">
@@ -360,29 +510,88 @@
 </div>
 
 <script>
-  const STORAGE_KEY = 'chdr_checkout_state';
-  let allItems = [];
-  let state = {}; // id -> true (checked out) | false (checked in)
-  let logEntries = [];
+  const STORAGE_CHECKOUT = 'chdr_checkout_state';
+  const STORAGE_CUSTOM   = 'chdr_custom_items';
+  const STORAGE_EDITS    = 'chdr_item_edits';
 
-  // Load persisted state
-  function loadState() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) state = JSON.parse(raw);
-    } catch(e) {}
+  const BASE_CATEGORIES = [
+    'AV & Networking','Audio Equipment','Books & Publications','Cables & Adapters',
+    'Cameras & Camcorders','Cleaning & Facilities','Computers & Displays','Miscellaneous',
+    'Office Supplies','Photography Accessories','Power & Batteries','Projectors',
+    'Scanners & Printers','Storage & Media','Tripods, Stands & Mounts'
+  ];
+
+  let baseItems   = [];   // from inventory.json
+  let customItems = [];   // user-added, in localStorage
+  let edits       = {};   // id -> field overrides
+  let checkoutState = {}; // id -> bool (true = checked out)
+  let logEntries  = [];
+  let modalMode   = null; // 'add' | 'edit'
+  let editTargetId = null;
+
+  // ── Storage ──────────────────────────────────────────────
+  function loadStorage() {
+    try { checkoutState = JSON.parse(localStorage.getItem(STORAGE_CHECKOUT) || '{}'); } catch(e){}
+    try { customItems   = JSON.parse(localStorage.getItem(STORAGE_CUSTOM)   || '[]'); } catch(e){}
+    try { edits         = JSON.parse(localStorage.getItem(STORAGE_EDITS)    || '{}'); } catch(e){}
   }
 
-  function saveState() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  function saveCheckout() { localStorage.setItem(STORAGE_CHECKOUT, JSON.stringify(checkoutState)); }
+  function saveCustom()   { localStorage.setItem(STORAGE_CUSTOM,   JSON.stringify(customItems)); }
+  function saveEdits()    { localStorage.setItem(STORAGE_EDITS,    JSON.stringify(edits)); }
+
+  // ── Merge base + custom + edits into allItems ─────────────
+  function allItems() {
+    const merged = baseItems.map(item => {
+      const override = edits[item.id];
+      return override ? { ...item, ...override } : item;
+    });
+    return [...merged, ...customItems];
+  }
+
+  function getItem(id) {
+    return allItems().find(i => i.id === id);
   }
 
   function isCheckedOut(item) {
-    if (item.id in state) return state[item.id];
-    return item.checked_out;
+    if (item.id in checkoutState) return checkoutState[item.id];
+    return item.checked_out || false;
   }
 
-  // Group items by Category
+  // ── Categories ────────────────────────────────────────────
+  function allCategories() {
+    const fromCustom = customItems.map(i => i['Category']).filter(Boolean);
+    return [...new Set([...BASE_CATEGORIES, ...fromCustom])].sort();
+  }
+
+  function populateCategorySelect() {
+    const sel = document.getElementById('f-category');
+    const current = sel.value;
+    sel.innerHTML = allCategories().map(c =>
+      `<option value="${escHtml(c)}"${c === current ? ' selected' : ''}>${escHtml(c)}</option>`
+    ).join('') + `<option value="__new__">+ New category...</option>`;
+    sel.onchange = function() {
+      if (this.value === '__new__') {
+        const name = prompt('Enter new category name:');
+        if (name && name.trim()) {
+          const opt = document.createElement('option');
+          opt.value = name.trim();
+          opt.textContent = name.trim();
+          this.insertBefore(opt, this.lastElementChild);
+          this.value = name.trim();
+        } else {
+          this.value = current || BASE_CATEGORIES[0];
+        }
+      }
+    };
+  }
+
+  // ── Render ────────────────────────────────────────────────
+  function escHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
   function groupByCategory(items) {
     const groups = {};
     items.forEach(item => {
@@ -393,23 +602,16 @@
     return groups;
   }
 
-  function escHtml(str) {
-    if (!str) return '';
-    return String(str)
-      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-      .replace(/"/g,'&quot;');
-  }
-
   function renderAll() {
     const query = document.getElementById('search').value.trim().toLowerCase();
     const filterStatus = document.getElementById('filter-status').value;
+    const items = allItems();
 
-    let filtered = allItems.filter(item => {
+    let filtered = items.filter(item => {
       if (query) {
-        const hay = [
-          item['Item Name'], item['Barcode'], item['Category'],
-          item['Location'], item['Vendor/Type'], item['Serial'], item['Note']
-        ].filter(Boolean).join(' ').toLowerCase();
+        const hay = [item['Item Name'], item['Barcode'], item['Category'],
+          item['Location'], item['Vendor/Type'], item['Serial'], item['Note']]
+          .filter(Boolean).join(' ').toLowerCase();
         if (!hay.includes(query)) return false;
       }
       if (filterStatus === 'in'  &&  isCheckedOut(item)) return false;
@@ -431,13 +633,14 @@
 
     const catOrder = Object.keys(groups).sort();
     main.innerHTML = catOrder.map(cat => {
-      const items = groups[cat];
-      const outCount = items.filter(i => isCheckedOut(i)).length;
+      const catItems = groups[cat];
+      const outCount = catItems.filter(i => isCheckedOut(i)).length;
+      const catId = 'cat-' + cat.replace(/[^a-zA-Z0-9]/g,'_');
       return `
-        <section class="category-section" id="cat-${escHtml(cat.replace(/\s+/g,'_'))}">
+        <section class="category-section" id="${escHtml(catId)}">
           <div class="category-header" onclick="toggleCategory(this.parentElement)">
             <h2>${escHtml(cat)}</h2>
-            <span class="category-badge">${items.length} item${items.length !== 1 ? 's' : ''}</span>
+            <span class="category-badge">${catItems.length} item${catItems.length !== 1 ? 's' : ''}</span>
             ${outCount > 0 ? `<span class="category-badge out">${outCount} out</span>` : ''}
             <span class="collapse-icon">&#9660;</span>
           </div>
@@ -453,10 +656,11 @@
                   <th>Availability</th>
                   <th class="note-col">Note</th>
                   <th>Check In/Out</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                ${items.map(item => renderRow(item)).join('')}
+                ${catItems.map(item => renderRow(item)).join('')}
               </tbody>
             </table>
           </div>
@@ -466,64 +670,48 @@
 
   function renderRow(item) {
     const out = isCheckedOut(item);
-    const avail = item['Status'];
+    const avail = item['Status'] || '';
     const availClass = avail === 'Available' ? 'available' : 'unavailable';
+    const isCustom = typeof item.id === 'string' && item.id.startsWith('custom_');
     return `
-      <tr class="${out ? 'checked-out' : ''}" id="row-${item.id}">
+      <tr class="${out ? 'checked-out' : ''}${isCustom ? ' custom-item' : ''}" id="row-${item.id}">
         <td class="name-cell">${escHtml(item['Item Name'])}</td>
         <td class="barcode-cell">${escHtml(item['Barcode'] || '')}</td>
         <td class="location-cell">${escHtml(item['Location'] || '')}</td>
-        <td class="qty-cell">${escHtml(String(item['Qty'] || ''))}</td>
+        <td class="qty-cell">${escHtml(String(item['Qty'] ?? ''))}</td>
         <td>${escHtml(item['Vendor/Type'] || '')}</td>
         <td class="status-cell">
-          <span class="availability-pill ${availClass}">${escHtml(avail || '')}</span>
+          <span class="availability-pill ${availClass}">${escHtml(avail)}</span>
         </td>
         <td class="note-cell note-col" title="${escHtml(item['Note'] || '')}">${escHtml(item['Note'] || '')}</td>
         <td>
-          <button class="toggle-btn ${out ? 'out' : 'in'}"
-                  onclick="toggleCheckout(${item.id})">
+          <button class="toggle-btn ${out ? 'out' : 'in'}" onclick="toggleCheckout(${JSON.stringify(item.id)})">
             <span class="dot ${out ? 'red' : 'green'}"></span>
             ${out ? 'OUT' : 'IN'}
           </button>
         </td>
+        <td class="action-cell">
+          <button class="btn-edit" onclick="openEditModal(${JSON.stringify(item.id)})">Edit</button>
+          ${isCustom ? `<button class="btn-delete" onclick="deleteCustomItem(${JSON.stringify(item.id)})">&#x2715;</button>` : ''}
+        </td>
       </tr>`;
   }
 
+  // ── Check In/Out ──────────────────────────────────────────
   function toggleCheckout(id) {
-    const item = allItems.find(i => i.id === id);
+    const item = getItem(id);
     if (!item) return;
     const wasOut = isCheckedOut(item);
-    state[id] = !wasOut;
-    saveState();
+    checkoutState[id] = !wasOut;
+    saveCheckout();
+    addLog(item['Item Name'], !wasOut ? 'out' : 'in');
 
-    // Log the change
-    const now = new Date();
-    const timeStr = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-    logEntries.unshift({
-      name: item['Item Name'],
-      category: item['Category'],
-      action: !wasOut ? 'out' : 'in',
-      time: timeStr
-    });
-    updateLog();
-
-    // Update just this row in-place for speed
     const row = document.getElementById(`row-${id}`);
-    if (row) {
-      row.outerHTML = renderRow({...item});
-      // after outerHTML replace, re-find and update class
-      const newRow = document.getElementById(`row-${id}`);
-      if (newRow) {
-        newRow.className = state[id] ? 'checked-out' : '';
-      }
-    }
-
-    // Refresh category badges without full re-render
+    if (row) row.outerHTML = renderRow(item);
     updateCategoryBadges();
-    document.getElementById('stats-label').textContent =
-      `${document.querySelectorAll('tbody tr').length} items`;
   }
 
+  // ── Category badge refresh ────────────────────────────────
   function updateCategoryBadges() {
     document.querySelectorAll('.category-section').forEach(section => {
       const rows = section.querySelectorAll('tbody tr');
@@ -531,21 +719,155 @@
       const outCount = [...rows].filter(r => r.classList.contains('checked-out')).length;
       const badges = section.querySelectorAll('.category-badge');
       if (badges[0]) badges[0].textContent = `${total} item${total !== 1 ? 's' : ''}`;
-      // Remove old out badge
       const oldOut = section.querySelector('.category-badge.out');
       if (oldOut) oldOut.remove();
       if (outCount > 0) {
         const outBadge = document.createElement('span');
         outBadge.className = 'category-badge out';
         outBadge.textContent = `${outCount} out`;
-        const collapseIcon = section.querySelector('.collapse-icon');
-        collapseIcon.parentElement.insertBefore(outBadge, collapseIcon);
+        section.querySelector('.collapse-icon').before(outBadge);
       }
     });
   }
 
-  function toggleCategory(section) {
-    section.classList.toggle('collapsed');
+  function toggleCategory(section) { section.classList.toggle('collapsed'); }
+
+  // ── Modal ─────────────────────────────────────────────────
+  function openAddModal() {
+    modalMode = 'add';
+    editTargetId = null;
+    document.getElementById('modal-title').textContent = 'Add New Item';
+    document.getElementById('f-name').value = '';
+    document.getElementById('f-barcode').value = '';
+    document.getElementById('f-location').value = '';
+    document.getElementById('f-qty').value = '';
+    document.getElementById('f-vendor').value = '';
+    document.getElementById('f-availability').value = 'Available';
+    document.getElementById('f-note').value = '';
+    setCheckoutToggle(false);
+    populateCategorySelect();
+    document.getElementById('modal-overlay').classList.add('open');
+    document.getElementById('f-name').focus();
+  }
+
+  function openEditModal(id) {
+    const item = getItem(id);
+    if (!item) return;
+    modalMode = 'edit';
+    editTargetId = id;
+    document.getElementById('modal-title').textContent = 'Edit Item';
+    document.getElementById('f-name').value = item['Item Name'] || '';
+    document.getElementById('f-barcode').value = item['Barcode'] || '';
+    document.getElementById('f-location').value = item['Location'] || '';
+    document.getElementById('f-qty').value = item['Qty'] ?? '';
+    document.getElementById('f-vendor').value = item['Vendor/Type'] || '';
+    document.getElementById('f-availability').value = item['Status'] || 'Available';
+    document.getElementById('f-note').value = item['Note'] || '';
+    setCheckoutToggle(isCheckedOut(item));
+    populateCategorySelect();
+    document.getElementById('f-category').value = item['Category'] || BASE_CATEGORIES[0];
+    document.getElementById('modal-overlay').classList.add('open');
+    document.getElementById('f-name').focus();
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modal-overlay')) closeModal();
+  }
+
+  function setCheckoutToggle(isOut) {
+    const cb = document.getElementById('f-checkout');
+    cb.checked = isOut;
+    document.getElementById('f-checkout-label').textContent = isOut ? 'OUT' : 'IN';
+  }
+
+  document.getElementById('f-checkout').addEventListener('change', function() {
+    document.getElementById('f-checkout-label').textContent = this.checked ? 'OUT' : 'IN';
+  });
+
+  function saveItem() {
+    const name = document.getElementById('f-name').value.trim();
+    if (!name) { document.getElementById('f-name').focus(); document.getElementById('f-name').style.borderColor='#c62828'; return; }
+    document.getElementById('f-name').style.borderColor = '';
+
+    const category   = document.getElementById('f-category').value;
+    const barcode    = document.getElementById('f-barcode').value.trim();
+    const location   = document.getElementById('f-location').value.trim();
+    const qty        = document.getElementById('f-qty').value.trim();
+    const vendor     = document.getElementById('f-vendor').value.trim();
+    const avail      = document.getElementById('f-availability').value;
+    const note       = document.getElementById('f-note').value.trim();
+    const checkedOut = document.getElementById('f-checkout').checked;
+
+    if (modalMode === 'add') {
+      const newId = 'custom_' + Date.now();
+      const newItem = {
+        id: newId,
+        'Category': category,
+        'Item Name': name,
+        'Barcode': barcode || null,
+        'Location': location || null,
+        'Qty': qty || null,
+        'Vendor/Type': vendor || null,
+        'Status': avail,
+        'Note': note || null,
+        'checked_out': checkedOut,
+        'Serial': null, 'Movable': null, 'Description': null, 'Purchase Date': null, 'Price': null, 'Checked?': null
+      };
+      customItems.push(newItem);
+      saveCustom();
+      checkoutState[newId] = checkedOut;
+      saveCheckout();
+      addLog(name, 'add');
+    } else {
+      // Edit: store overrides
+      const override = {
+        'Item Name': name,
+        'Category': category,
+        'Barcode': barcode || null,
+        'Location': location || null,
+        'Qty': qty || null,
+        'Vendor/Type': vendor || null,
+        'Status': avail,
+        'Note': note || null,
+      };
+
+      const isCustom = typeof editTargetId === 'string' && editTargetId.startsWith('custom_');
+      if (isCustom) {
+        const idx = customItems.findIndex(i => i.id === editTargetId);
+        if (idx !== -1) customItems[idx] = { ...customItems[idx], ...override };
+        saveCustom();
+      } else {
+        edits[editTargetId] = { ...(edits[editTargetId] || {}), ...override };
+        saveEdits();
+      }
+      checkoutState[editTargetId] = checkedOut;
+      saveCheckout();
+      addLog(name, 'edit');
+    }
+
+    closeModal();
+    renderAll();
+  }
+
+  // ── Delete custom item ────────────────────────────────────
+  function deleteCustomItem(id) {
+    if (!confirm('Delete this item?')) return;
+    customItems = customItems.filter(i => i.id !== id);
+    saveCustom();
+    delete checkoutState[id];
+    saveCheckout();
+    renderAll();
+  }
+
+  // ── Activity log ──────────────────────────────────────────
+  function addLog(name, action) {
+    const timeStr = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+    logEntries.unshift({ name, action, time: timeStr });
+    updateLog();
   }
 
   function toggleLog() {
@@ -560,20 +882,18 @@
       container.innerHTML = '<div class="log-entry" style="color:#aaa">No activity yet.</div>';
       return;
     }
+    const labelClass = { out:'log-out', in:'log-in', edit:'log-edit', add:'log-add' };
     container.innerHTML = logEntries.slice(0, 50).map(e => `
       <div class="log-entry">
-        <span class="${e.action === 'out' ? 'log-out' : 'log-in'}">${e.action.toUpperCase()}</span>
+        <span class="${labelClass[e.action] || 'log-edit'}">${e.action.toUpperCase()}</span>
         &mdash; ${escHtml(e.name)}
         <span class="log-time">${e.time}</span>
       </div>`).join('');
   }
 
-  function clearLog() {
-    logEntries = [];
-    updateLog();
-  }
+  function clearLog() { logEntries = []; updateLog(); }
 
-  // Debounced re-render on search/filter
+  // ── Search / filter ───────────────────────────────────────
   let renderTimer;
   function scheduleRender() {
     clearTimeout(renderTimer);
@@ -583,18 +903,21 @@
   document.getElementById('search').addEventListener('input', scheduleRender);
   document.getElementById('filter-status').addEventListener('change', scheduleRender);
 
-  // Boot
-  loadState();
+  // Keyboard: Escape closes modal
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // ── Boot ──────────────────────────────────────────────────
+  loadStorage();
   fetch('inventory.json')
     .then(r => r.json())
     .then(data => {
-      allItems = data;
+      baseItems = data;
       renderAll();
       updateLog();
     })
     .catch(() => {
       document.getElementById('main-content').innerHTML =
-        '<div class="no-results">Error loading inventory.json. Make sure to serve this page over HTTP.</div>';
+        '<div class="no-results">Error loading inventory.json. Serve this page over HTTP.</div>';
     });
 </script>
 </body>
